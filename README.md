@@ -41,15 +41,16 @@ The top refactoring priority (`EqualPredicateTest.java`) has:
 - $56 to refactor proactively
 - **3,568% ROI**
 
-### AST Feature Integration (2-repo subset)
+### AST Feature Integration (4-repo subset)
 
 | Model | C-index (Train) | C-index (Test) |
 |---|---|---|
-| Original (DB metrics only) | 0.694 | 0.669 |
-| AST features only | 0.617 | 0.592 |
-| **Combined (DB + AST)** | **0.701** | 0.666 |
+| Original (DB metrics only) | 0.708 | 0.695 |
+| AST features only | 0.574 | 0.564 |
+| **Combined (DB + AST)** | **0.715** | **0.700** |
 
-Statistically significant AST signals: `has_inheritance` (p=0.005), `import_count` (p=0.004)
+**Test C-index improvement: +0.0047 (+0.7%)** over the DB-only baseline.  
+Statistically significant AST signals: `has_inheritance` (p=0.045), `max_nesting_depth` (p=0.010), `import_count` (p<0.001)
 
 ## Architecture
 
@@ -74,8 +75,9 @@ td_V2.db (SQLite)
     │   └── ROI = (Expected Loss - Refactor Cost) / Refactor Cost
     │
     └── Phase 6: AST Feature Extraction (20 structural features)
-        ├── Tree-sitter Java parser on cloned Apache repos
+        ├── Tree-sitter Java parser on 4 cloned Apache repos
         ├── Time-travel: git show at historical fault-inducing commits
+        ├── 13,436 file snapshots parsed across 1,466 unique commits
         └── Integration: combined DB + AST model comparison
 ```
 
@@ -149,6 +151,8 @@ python src/models/roi_scorer.py
 # Step 5 (optional): AST features — requires cloning repos
 git clone https://github.com/apache/commons-collections.git raw_repos/commons-collections
 git clone https://github.com/apache/commons-io.git raw_repos/commons-io
+git clone https://github.com/apache/commons-vfs.git raw_repos/commons-vfs
+git clone https://github.com/apache/commons-ognl.git raw_repos/commons-ognl
 pip install tree-sitter tree-sitter-java
 python src/ast_parser/time_travel_extract.py
 python src/models/ast_integration.py
