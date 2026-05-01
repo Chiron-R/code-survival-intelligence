@@ -41,6 +41,8 @@ parser = Parser(JAVA)
 REPO_MAP = {
     "org.apache:collections": "commons-collections",
     "org.apache:commons-io": "commons-io",
+    "org.apache:vfs": "commons-vfs",
+    "org.apache:ognl": "commons-ognl",
 }
 
 TARGET_PROJECTS = list(REPO_MAP.keys())

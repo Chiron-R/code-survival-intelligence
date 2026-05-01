@@ -30,7 +30,7 @@ def main():
     # Filter training set to only the 2 repos we have AST data for
     target_projects = ast_df["PROJECT_ID"].unique().tolist()
     train_subset = train_df[train_df["PROJECT_ID"].isin(target_projects)].copy()
-    print(f"  Training subset (2 repos): {len(train_subset):,} rows")
+    print(f"  Training subset ({len(target_projects)} repos): {len(train_subset):,} rows")
 
     # ── Aggregate AST features per (PROJECT_ID, FILE) ───────────
     # The AST data has multiple rows per file (one per fault commit).
