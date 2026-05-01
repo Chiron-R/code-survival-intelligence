@@ -13,6 +13,9 @@ build/
 venv/
 env/
 
+# ── Cloned Repos (large, re-cloneable) ──────────────────
+raw_repos/
+
 # ── Data (large / generated) ────────────────────────────
 # The SQLite database is 1.5GB — download separately
 data/td_V2.db
