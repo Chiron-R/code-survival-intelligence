@@ -288,7 +288,7 @@ def process_repo(repo_name: str, limit: int = 0) -> list[dict]:
 
 def main():
     ap = argparse.ArgumentParser(description="AST Feature Extraction via Tree-sitter")
-    ap.add_argument("--repo", choices=["commons-collections", "commons-io", "all"],
+    ap.add_argument("--repo", choices=["commons-collections", "commons-io", "commons-vfs", "commons-ognl", "all"],
                      default="all", help="Which repo to process")
     ap.add_argument("--limit", type=int, default=0,
                      help="Max files per repo (0 = all)")
@@ -299,6 +299,10 @@ def main():
         repos.append("commons-collections")
     if args.repo in ("commons-io", "all"):
         repos.append("commons-io")
+    if args.repo in ("commons-vfs", "all"):
+        repos.append("commons-vfs")
+    if args.repo in ("commons-ognl", "all"):
+        repos.append("commons-ognl")
     
     all_features = []
     for repo in repos:
