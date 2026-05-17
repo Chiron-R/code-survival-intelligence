@@ -40,3 +40,4 @@ desktop.ini
 # ── Temp / Scratch ───────────────────────────────────────
 data/pdf_text*.txt
 *.tmp
+*.zip
